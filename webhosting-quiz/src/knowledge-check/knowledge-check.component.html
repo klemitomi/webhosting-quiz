@@ -1,1 +1,74 @@
-<p>knowledge-check works!</p>
+<div class="quiz-container">
+    <h1>Webhosting Tudásellenőrző Quiz</h1>
+
+    @if (!quizCompleted) {
+    <div class="quiz-content">
+        <div class="progress-container">
+            <mat-progress-bar mode="determinate" [value]="(currentQuestionIndex / questions.length) * 100">
+            </mat-progress-bar>
+            <span class="progress-text">{{ currentQuestionIndex + 1 }} / {{ questions.length }}<span
+                    class="progress-emoji">
+                    {{ getProgressEmoji() }}
+                </span></span>
+        </div>
+
+        <mat-card class="question-card">
+            <mat-card-header>
+                <mat-card-title>{{ questions[currentQuestionIndex].question }}</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="options-container">
+                    @for (option of questions[currentQuestionIndex].options; track $index) {
+                    <button mat-raised-button [class.selected]="questions[currentQuestionIndex].userAnswer === $index"
+                        (click)="selectAnswer($index)">
+                        {{ option }}
+                    </button>
+                    }
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    }
+
+    @if (quizCompleted) {
+    <div class="results-container">
+        <mat-card class="result-card">
+            <mat-card-header>
+                <mat-card-title>Eredményed: {{ score }} / {{ questions.length }}</mat-card-title>
+                <mat-card-subtitle>{{ resultMessage }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="result-details">
+                    @for (question of questions; track $index) {
+                    <div class="result-item">
+                        <h3>{{ question.question }}</h3>
+                        <p class="user-answer" [class.correct]="question.userAnswer === question.correctAnswer"
+                            [class.incorrect]="question.userAnswer !== question.correctAnswer">
+                            Te válaszod: {{ question.options[question.userAnswer ?? 0] }}
+                        </p>
+                        @if (question.userAnswer !== question.correctAnswer) {
+                        <p class="correct-answer">
+                            Helyes válasz: {{ question.options[question.correctAnswer] }}
+                        </p>
+                        }
+                        @if ($index < questions.length - 1) { <mat-divider></mat-divider>
+                            }
+                    </div>
+                    }
+                </div>
+                <mat-card-title>
+                    <p>Eredményed: {{ score }}/{{ questions.length }}
+                        <span class="result-emoji">{{ getResultEmoji( score, questions.length) }}</span>
+                    </p>
+                </mat-card-title>
+            </mat-card-content>
+
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="restartQuiz()">Újra kezdem</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    }
+</div>
