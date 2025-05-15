@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { QuizService } from '../app/knowledge-check/quiz.service';
+import { QuizService } from '.././app/knowledge-check/quiz.service';
 import { QUIZ_QUESTIONS } from '../app/knowledge-check/quiz-data';
 import { Question } from '../app/knowledge-check/question.model';
 
