@@ -12,6 +12,8 @@ ng serve
 ```
 
 ## Deploy
+Firebase link:
+https://webhosting-quiz.web.app/
 
 ## Készítő
 Klement Tamás
